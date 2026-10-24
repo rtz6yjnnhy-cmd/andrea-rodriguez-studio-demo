@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta name="robots" content="noindex, nofollow">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Andrea Rodriguez Studio — Discipline with Purpose (demo prototype)</title>
+  <meta name="description" content="Sales demo prototype for Andrea Rodriguez Studio. All products, prices and images are samples.">
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,400&family=Jost:wght@400;500&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    document.documentElement.classList.add('js');
+    /* Image slots (D-007): every <img class="slot-img"> calls this from onload/onerror. A slot whose file is
+       missing or broken gets .is-fallback (the img is hidden and the drawn placeholder underneath shows), so
+       the page never shows a broken-image icon. Results are remembered per src so re-renders do not flash. */
+    window.__arsImg = { ok: new Set(), bad: new Set() };
+    window.__arsSlot = function (img, ok) {
+      var src = img.getAttribute('src');
+      (ok ? window.__arsImg.ok : window.__arsImg.bad).add(src);
+      var slot = img.closest('.slot');
+      if (slot) slot.classList.add(ok ? 'is-loaded' : 'is-fallback');
+    };
+  </script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+
+  <div id="announcement" class="announcement">
+    <p class="label" data-i18n="announce">Discipline with purpose.</p>
+  </div>
+
+  <header id="site-header" class="site-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <button type="button" id="menu-btn" class="menu-btn label" aria-expanded="false" aria-controls="mobile-menu" data-i18n="menu">Menu</button>
+        <a href="#main" class="logo" data-scroll-top data-i18n-attr="aria-label:logo.home" aria-label="Andrea Rodriguez Studio, back to top" title="Logo placeholder (typeset)">
+          <svg class="logo-lockup" viewBox="0 0 120 72" aria-hidden="true" focusable="false">
+            <text class="mono-letter" x="57" y="40" text-anchor="end" font-size="48">A</text>
+            <rect x="59" y="2" width="1.6" height="42" class="mono-bar"/>
+            <text class="mono-letter" x="62.5" y="40" font-size="48">R</text>
+            <text class="lockup-name" x="60" y="57" text-anchor="middle" font-size="13">Andrea Rodriguez</text>
+            <text class="lockup-studio" x="60" y="69" text-anchor="middle" font-size="7.5" letter-spacing="2.4">STUDIO</text>
+          </svg>
+        </a>
+      </div>
+      <a href="#main" class="logo-mono" data-scroll-top data-i18n-attr="aria-label:logo.home" aria-label="Andrea Rodriguez Studio, back to top" title="Logo placeholder (typeset)">
+        <svg viewBox="0 0 64 44" aria-hidden="true" focusable="false">
+          <text class="mono-letter" x="30" y="38" text-anchor="end" font-size="46">A</text>
+          <rect x="31.2" y="2" width="1.6" height="40" class="mono-bar"/>
+          <text class="mono-letter" x="34.5" y="38" font-size="46">R</text>
+        </svg>
+      </a>
+      <nav class="main-nav" data-i18n-attr="aria-label:nav.label" aria-label="Main">
+        <ul>
+          <li><a href="#shop" data-nav="shop" data-i18n="nav.shop">Shop</a></li>
+          <li><a href="#about" data-nav="about" data-i18n="nav.about">About</a></li>
+          <li><a href="#shipping" data-nav="shipping" data-i18n="nav.shipping">Shipping</a></li>
+          <li><a href="#contact" data-nav="contact" data-i18n="nav.contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-tools">
+        <span class="currency label">USD</span>
+        <div class="lang-toggle" role="group" data-i18n-attr="aria-label:lang.group" aria-label="Language">
+          <button type="button" class="lang-btn" data-lang="en" lang="en" aria-label="English" aria-pressed="true">EN</button>
+          <span class="lang-sep" aria-hidden="true">|</span>
+          <button type="button" class="lang-btn" data-lang="es" lang="es" aria-label="Español" aria-pressed="false">ES</button>
+        </div>
+        <button type="button" id="cart-btn" class="cart-btn" aria-controls="cart" aria-haspopup="dialog" aria-label="Cart, empty">
+          <svg class="bag" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M5 8.5h14l-1 12H6l-1-12Z"/>
+            <path d="M9 8.5V7a3 3 0 0 1 6 0v1.5"/>
+          </svg>
+          <span class="cart-count label" aria-hidden="true">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <!-- 1. Hero -->
+    <section id="hero" class="hero" aria-labelledby="hero-title">
+      <div class="hero-media" aria-hidden="true">
+        <!-- Poster: the no-JS and reduced-motion picture; <picture> fetches one file per viewport. -->
+        <picture class="hero-poster">
+          <source media="(min-width: 768px)" srcset="media/hero-desktop-poster.jpg" width="1920" height="1080">
+          <img src="media/hero-mobile-poster.jpg" alt="" width="800" height="860" decoding="async" fetchpriority="high">
+        </picture>
+        <!-- Stock placeholder video (D-006, Pexels 6870452). No src in the markup: app.js sets one file per
+             viewport from matchMedia and never sets it under prefers-reduced-motion. -->
+        <video class="hero-video" muted autoplay loop playsinline preload="metadata" disablepictureinpicture disableremoteplayback tabindex="-1"></video>
+        <div class="hero-scrim"></div>
+        <!-- Small A|R mark over the video (Orchestrator default; delete this element to remove it) -->
+        <svg class="hero-mark" viewBox="0 0 64 44" focusable="false">
+          <text class="mono-letter" x="30" y="38" text-anchor="end" font-size="46">A</text>
+          <rect x="31.2" y="2" width="1.6" height="40" class="mono-bar"/>
+          <text class="mono-letter" x="34.5" y="38" font-size="46">R</text>
+        </svg>
+        <span class="sample-tag hero-tag" data-i18n="ph.heroVideo">Stock footage — not Andrea Rodriguez Studio products</span>
+      </div>
+      <div class="hero-content">
+        <h1 id="hero-title" class="display">
+          <span class="line"><span data-i18n="hero.l1">Discipline</span></span>
+          <span class="line"><span data-i18n="hero.l2">with purpose.</span></span>
+        </h1>
+        <p class="hero-sub" data-i18n="hero.sub">A lifestyle brand for women building their lives with intention.</p>
+        <div class="hero-actions">
+          <a href="#shop" class="btn btn-primary" data-goto-shop data-i18n="cta.shop">Shop the collection</a>
+          <a href="https://wa.me/message/KO7KRN5WCKZZN1" target="_blank" rel="noopener" class="text-cta" data-ext data-i18n="cta.wa">Questions? Chat on WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Value strip / centred intro (ART_DIRECTION §6.2; reference heading per D-005, flag in app.js) -->
+    <section id="intro" class="intro" aria-labelledby="intro-title">
+      <p class="label intro-label reveal" data-i18n="intro.label">Andrea Rodriguez Studio</p>
+      <h2 id="intro-title" class="heading intro-title reveal" style="--d:80ms">
+        <span class="line" data-i18n="intro.l1">More than activewear.</span>
+        <em class="line" data-i18n="intro.l2">A way of living.</em>
+      </h2>
+      <p class="intro-words reveal" id="intro-words" style="--d:160ms" data-i18n="intro.words">Movement • Elegance • Purpose</p>
+      <span class="intro-bar reveal" style="--d:240ms" aria-hidden="true"></span>
+    </section>
+
+    <!-- 2b. Category tiles -->
+    <section id="categories" class="categories" aria-labelledby="cat-title">
+      <h2 id="cat-title" class="sr-only" data-i18n="cat.title">Shop by category</h2>
+      <ul class="tiles" id="tiles"></ul>
+    </section>
+
+    <!-- 3. Shop -->
+    <section id="shop" class="shop" aria-labelledby="shop-title">
+      <div class="shop-head">
+        <h2 id="shop-title" class="heading" tabindex="-1" data-i18n="shop.title">Your next favorite set</h2>
+        <p class="shop-count label" id="shop-count">22 sample products</p>
+      </div>
+      <p class="shop-demo" data-i18n="shop.demo">Demo — products, prices and photos are samples; photos are stock photography.</p>
+      <div class="filters">
+        <div class="chip-row" id="filter-row" role="group" data-i18n-attr="aria-label:filter.group" aria-label="Filter by category"></div>
+      </div>
+      <noscript><p class="shop-note">The sample shop needs JavaScript to run. / La tienda de muestra necesita JavaScript.</p></noscript>
+      <ul class="grid" id="shop-grid"></ul>
+      <div class="grid-empty" id="grid-empty" hidden>
+        <p data-i18n="filter.empty">No sample products in this category.</p>
+        <button type="button" class="text-cta" data-filter-reset data-i18n="filter.all">All</button>
+      </div>
+    </section>
+
+    <!-- 4. About: split philosophy block (ART_DIRECTION §6.4). Image slot: media/about/about.jpg -->
+    <section id="about" class="about" aria-labelledby="about-title">
+      <div class="about-media slot ground-b reveal">
+        <svg class="slot-art about-art" viewBox="0 0 64 44" aria-hidden="true" focusable="false">
+          <text class="mono-letter" x="30" y="38" text-anchor="end" font-size="46">A</text>
+          <rect x="31.2" y="2" width="1.6" height="40" class="mono-bar"/>
+          <text class="mono-letter" x="34.5" y="38" font-size="46">R</text>
+        </svg>
+        <img class="slot-img" src="media/about/about.jpg" alt="Sample lifestyle photo (stock photography)" data-i18n-attr="alt:alt.about" width="1440" height="1120" loading="lazy" decoding="async" data-focal="" onload="__arsSlot(this,1)" onerror="__arsSlot(this,0)">
+        <span class="sample-tag tag-photo" data-i18n="tag.stock">Stock photo</span>
+      </div>
+      <div class="about-text">
+        <p class="label about-label reveal" data-i18n="about.label">About</p>
+        <h2 id="about-title" class="heading about-title reveal" style="--d:80ms" tabindex="-1" data-i18n="about.title">A lifestyle brand for women building their lives with intention.</h2>
+        <a href="https://www.instagram.com/andrearodriguezstudio/" target="_blank" rel="noopener" class="text-cta reveal" style="--d:160ms" data-ext data-i18n="cta.ig">Follow on Instagram</a>
+      </div>
+    </section>
+
+    <!-- 5. Shipping & orders: service strip (ART_DIRECTION §6.5; verified content only, returns shown as Sample) -->
+    <section id="shipping" class="shipping" aria-labelledby="shipping-title">
+      <div class="shipping-inner">
+        <h2 id="shipping-title" class="heading reveal" tabindex="-1" data-i18n="ship.title">Shipping &amp; orders</h2>
+        <ul class="service">
+          <li class="service-item reveal">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M2.75 6.25h11.5v9.5H2.75z"/><path d="M14.25 9.25h3.9l3.1 3.4v3.1h-7"/><circle cx="6.5" cy="17.5" r="1.75"/><circle cx="17.5" cy="17.5" r="1.75"/></svg>
+            <div>
+              <h3 class="label" data-i18n="ship.us">United States</h3>
+              <p data-i18n="ship.usText">We ship to the United States.</p>
+            </div>
+          </li>
+          <li class="service-item reveal" style="--d:80ms">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21.25 2.75 2.75 10.4l7 2.85 2.85 7 8.65-17.5Z"/><path d="m9.75 13.25 5.5-5.5"/></svg>
+            <div>
+              <h3 class="label" data-i18n="ship.co">Colombia</h3>
+              <p data-i18n="ship.coText">We ship to Colombia.</p>
+            </div>
+          </li>
+          <li class="service-item reveal" style="--d:160ms">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.75 3.75 6.75v10.5L12 21.25l8.25-4V6.75L12 2.75Z"/><path d="M3.75 6.75 12 10.75l8.25-4"/><path d="M12 10.75v10.5"/></svg>
+            <div>
+              <h3 class="label" data-i18n="ship.ret">Returns</h3>
+              <p><span class="sample-tag sample-tag--inline" data-i18n="tag.sample">Sample</span> <span data-i18n="ship.retText">Return terms to be confirmed.</span></p>
+            </div>
+          </li>
+          <li class="service-item reveal" style="--d:240ms">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3.75 4.75h16.5v11H10l-4.25 3.75v-3.75h-2z"/><path d="M8 10.25h.01M12 10.25h.01M16 10.25h.01" stroke-width="2"/></svg>
+            <div>
+              <h3 class="label" data-i18n="ship.q">Questions?</h3>
+              <a href="https://wa.me/message/KO7KRN5WCKZZN1" target="_blank" rel="noopener" class="btn btn-secondary" data-ext data-i18n="ship.wa">Chat on WhatsApp</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 6. Closing band (ART_DIRECTION §6.6) -->
+    <section id="closing" class="closing" aria-labelledby="closing-title">
+      <p class="label closing-label reveal" data-i18n="intro.label">Andrea Rodriguez Studio</p>
+      <h2 id="closing-title" class="heading closing-title reveal" style="--d:80ms" data-i18n="closing.title">Your best version starts with a decision</h2>
+      <a href="#shop" class="btn btn-primary reveal" style="--d:160ms" data-goto-shop data-i18n="cta.shop">Shop the collection</a>
+    </section>
+
+    <!-- 6b. Instagram row (ART_DIRECTION §6.6b). Image slots: media/instagram/ig-1.jpg … ig-5.jpg -->
+    <section id="instagram" class="instagram" aria-labelledby="ig-title">
+      <h2 id="ig-title" class="heading ig-title reveal" data-i18n="ig.title">Join the movement</h2>
+      <a href="https://www.instagram.com/andrearodriguezstudio/" target="_blank" rel="noopener" class="label ig-handle reveal" style="--d:80ms" data-ext>@andrearodriguezstudio</a>
+      <ul class="ig-row" id="ig-row"></ul>
+      <p class="ig-note reveal" data-i18n="ig.note">Photos shown are stock photography, not posts from @andrearodriguezstudio.</p>
+    </section>
+  </main>
+
+  <!-- 7. Footer / contact (ART_DIRECTION §6.7) -->
+  <footer id="contact" class="footer" aria-labelledby="contact-title">
+    <h2 id="contact-title" class="sr-only" tabindex="-1" data-i18n="foot.title">Contact</h2>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <a href="#main" class="footer-logo" data-scroll-top data-i18n-attr="aria-label:logo.home" aria-label="Andrea Rodriguez Studio, back to top">
+          <svg class="logo-lockup" viewBox="0 0 120 72" aria-hidden="true" focusable="false">
+            <text class="mono-letter" x="57" y="40" text-anchor="end" font-size="48">A</text>
+            <rect x="59" y="2" width="1.6" height="42" class="mono-bar"/>
+            <text class="mono-letter" x="62.5" y="40" font-size="48">R</text>
+            <text class="lockup-name" x="60" y="57" text-anchor="middle" font-size="13">Andrea Rodriguez</text>
+            <text class="lockup-studio" x="60" y="69" text-anchor="middle" font-size="7.5" letter-spacing="2.4">STUDIO</text>
+          </svg>
+        </a>
+        <nav class="footer-nav" data-i18n-attr="aria-label:foot.nav" aria-label="Footer">
+          <ul>
+            <li><a href="#shop" data-nav="shop" data-i18n="nav.shop">Shop</a></li>
+            <li><a href="#about" data-nav="about" data-i18n="nav.about">About</a></li>
+            <li><a href="#shipping" data-nav="shipping" data-i18n="nav.shipping">Shipping</a></li>
+          </ul>
+        </nav>
+        <div class="footer-actions">
+          <a href="https://wa.me/message/KO7KRN5WCKZZN1" target="_blank" rel="noopener" class="btn btn-secondary btn-secondary--ivory" data-ext data-i18n="cta.wa">Questions? Chat on WhatsApp</a>
+          <a href="https://www.instagram.com/andrearodriguezstudio/" target="_blank" rel="noopener" class="text-cta text-cta--ivory" data-ext data-i18n="cta.ig">Follow on Instagram</a>
+          <div class="lang-toggle" role="group" data-i18n-attr="aria-label:lang.group" aria-label="Language">
+            <button type="button" class="lang-btn" data-lang="en" lang="en" aria-label="English" aria-pressed="true">EN</button>
+            <span class="lang-sep" aria-hidden="true">|</span>
+            <button type="button" class="lang-btn" data-lang="es" lang="es" aria-label="Español" aria-pressed="false">ES</button>
+          </div>
+        </div>
+      </div>
+      <p class="footer-name" aria-hidden="true">Andrea Rodriguez Studio</p>
+      <div class="footer-legal">
+        <p data-i18n="shop.demo">Demo — products, prices and photos are samples; photos are stock photography.</p>
+        <p data-i18n="foot.more">Checkout is a demo: no order is placed and no payment is processed. The logo shown is a typeset placeholder. Hero video: Gustavo Fring, Pexels.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp (ART_DIRECTION §6, UX_SPEC §8) -->
+  <a id="wa-float" class="wa-float is-hidden" href="https://wa.me/message/KO7KRN5WCKZZN1" target="_blank" rel="noopener" data-ext>
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3.25a8.75 8.75 0 0 0-7.55 13.17L3.25 20.75l4.45-1.16A8.75 8.75 0 1 0 12 3.25Z"/><path d="M9.1 7.9c.3-.3.75-.25.95.1l.75 1.45c.15.3.1.65-.15.9l-.55.55a5.6 5.6 0 0 0 2.95 2.95l.55-.55c.25-.25.6-.3.9-.15l1.45.75c.35.2.4.65.1.95l-.6.6c-.6.6-1.5.8-2.3.5a8.2 8.2 0 0 1-4.6-4.6c-.3-.8-.1-1.7.5-2.3l.05-.1Z"/></svg>
+    <span class="sr-only" data-i18n="cta.wa">Questions? Chat on WhatsApp</span>
+  </a>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu" data-i18n-attr="aria-label:menu" hidden>
+    <div class="mm-bar">
+      <button type="button" class="menu-btn label mm-close" data-i18n="close">Close</button>
+    </div>
+    <nav class="mm-nav" data-i18n-attr="aria-label:nav.label" aria-label="Main">
+      <ul>
+        <li><a href="#shop" data-nav="shop" data-i18n="nav.shop">Shop</a></li>
+        <li><a href="#about" data-nav="about" data-i18n="nav.about">About</a></li>
+        <li><a href="#shipping" data-nav="shipping" data-i18n="nav.shipping">Shipping</a></li>
+        <li><a href="#contact" data-nav="contact" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="mm-foot">
+      <div class="lang-toggle" role="group" data-i18n-attr="aria-label:lang.group" aria-label="Language">
+        <button type="button" class="lang-btn" data-lang="en" lang="en" aria-label="English" aria-pressed="true">EN</button>
+        <span class="lang-sep" aria-hidden="true">|</span>
+        <button type="button" class="lang-btn" data-lang="es" lang="es" aria-label="Español" aria-pressed="false">ES</button>
+      </div>
+      <span class="label currency">USD</span>
+    </div>
+  </div>
+
+  <div id="scrim" class="scrim" hidden></div>
+
+  <!-- Cart drawer / bottom sheet -->
+  <div id="cart" class="cart" role="dialog" aria-modal="true" aria-labelledby="cart-title" hidden>
+    <div class="cart-grab" id="cart-grab">
+      <div class="cart-handle" aria-hidden="true"></div>
+      <div class="cart-head">
+        <h2 id="cart-title" class="title" tabindex="-1"><span data-i18n="cart.title">Your cart</span><span class="cart-head-count label" id="cart-head-count"></span></h2>
+        <button type="button" class="cart-close text-btn" data-cart-close><span data-i18n="close">Close</span> <span aria-hidden="true" class="x">×</span></button>
+      </div>
+    </div>
+    <div class="cart-body" id="cart-body">
+      <ul class="cart-lines" id="cart-lines"></ul>
+      <div class="cart-empty" id="cart-empty" hidden>
+        <p class="title" data-i18n="cart.empty">Your cart is empty</p>
+        <a href="#shop" class="btn btn-primary" data-cart-shop data-i18n="cta.shop">Shop the collection</a>
+      </div>
+    </div>
+    <div class="cart-foot" id="cart-foot">
+      <div class="subtotal-row">
+        <span class="label" data-i18n="cart.subtotal">Subtotal</span>
+        <span class="subtotal"><span class="title num" id="cart-subtotal">$0.00</span> <span class="label">USD</span></span>
+      </div>
+      <div class="ship-row">
+        <span class="label ship-label" data-i18n="cart.shipLabel">Shipping</span>
+        <span class="ship-value" data-i18n="cart.shipping">Calculated at checkout</span>
+      </div>
+      <button type="button" class="btn btn-primary btn-block btn-tall" id="checkout-btn" data-i18n="cart.checkout">Checkout</button>
+      <div class="cart-foot-links">
+        <button type="button" class="text-cta" data-cart-close data-i18n="cart.continue">Continue shopping</button>
+        <a href="https://wa.me/message/KO7KRN5WCKZZN1" target="_blank" rel="noopener" class="text-cta" data-ext data-i18n="cart.help">Need help?</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout (prototype placeholder panel) -->
+  <div id="checkout" class="checkout" role="dialog" aria-modal="true" aria-labelledby="co-title" hidden>
+    <div class="co-head">
+      <svg class="logo-lockup co-logo" viewBox="0 0 120 72" aria-hidden="true" focusable="false">
+        <text class="mono-letter" x="57" y="40" text-anchor="end" font-size="48">A</text>
+        <rect x="59" y="2" width="1.6" height="42" class="mono-bar"/>
+        <text class="mono-letter" x="62.5" y="40" font-size="48">R</text>
+        <text class="lockup-name" x="60" y="57" text-anchor="middle" font-size="13">Andrea Rodriguez</text>
+        <text class="lockup-studio" x="60" y="69" text-anchor="middle" font-size="7.5" letter-spacing="2.4">STUDIO</text>
+      </svg>
+      <button type="button" class="text-cta" id="co-back" data-i18n="co.back">Back to cart</button>
+    </div>
+    <p class="demo-strip label" data-i18n="co.strip">Demo checkout — no payment is processed</p>
+    <div class="co-body">
+      <h2 id="co-title" class="heading" tabindex="-1" data-i18n="co.title">Checkout (demo)</h2>
+      <p class="co-text" data-i18n="co.text">This checkout is a demo: no order is placed and no payment is processed.</p>
+      <p class="co-summary"><span class="label" data-i18n="cart.subtotal">Subtotal</span> <span class="title num" id="co-subtotal">$0.00</span> <span class="label">USD</span></p>
+      <button type="button" class="btn btn-primary" id="co-back-2" data-i18n="co.back">Back to cart</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" hidden>
+    <span class="toast-text" id="toast-text">Added to cart</span>
+    <button type="button" class="text-cta text-cta--ivory" id="toast-view" data-i18n="toast.view">View cart</button>
+  </div>
+
+  <div id="sr-status" class="sr-only" role="status" aria-live="polite"></div>
+</body>
+</html>
